@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+
+<title>评分</title>
+
+<style type="text/css">
+    body {
+      background-color: #FFFFFF;
+    }
+    .main.container {
+      margin-top: 7em;
+    }
+    .wireframe {
+      margin-top: 2em;
+    }
+
+    .masthead.segment {
+      padding: 1em 0em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+    </style>
+
+{% endblock %}
+
+
+
+{% block body %}
+<div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a class="item" href="{% url 'index' %}">主页</a>
+            <a class="active item" href="{% url 'poll:poll_index' %}">评分</a>
+            <div class="right item">
+                {% if is_login == 'true' %}
+                <a class="item">用户名：{{ username }}</a>
+                <a class="item">组别：{{ user_group }}</a>
+                <a class="ui inverted button" href="{% url 'login:logout' %}">退出</a>
+                <a class="ui inverted button" href="{% url 'login:modify' %}">修改</a>
+                {% else %}
+                <a class="ui inverted button" href="{% url 'login:login' %}">登陆</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui main text container">
+    <h1 class="ui header">民意调查</h1>
+    <p>。。。。。</p>
+    <form class="ui form" action="{% url 'poll:poll_index' %}" method="post">
+        {% csrf_token %}
+          {% if question1 %}
+          <div class="field">
+            <p>1、{{ question1 }}</p>
+            <input type="number" name="question1" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question2 %}
+          <div class="field">
+            <p>2、{{ question2 }}</p>
+            <input type="number" name="question2" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question3 %}
+          <div class="field">
+            <p>3、{{ question3 }}</p>
+            <input type="number" name="question3" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question4 %}
+          <div class="field">
+            <p>4、{{ question4 }}</p>
+            <input type="number" name="question4" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question5 %}
+          <div class="field">
+            <p>5、{{ question5 }}</p>
+            <input type="number" name="question5" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question6 %}
+          <div class="field">
+            <p>6、{{ question6 }}</p>
+            <input type="number" name="question6" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question7 %}
+          <div class="field">
+            <p>7、{{ question7 }}</p>
+            <input type="number" name="question7" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question8 %}
+          <div class="field">
+            <p>8、{{ question8 }}</p>
+            <input type="number" name="question8" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question9 %}
+          <div class="field">
+            <p>9、{{ question9 }}</p>
+            <input type="number" name="question9" placeholder="请输入数字">
+          </div>
+          {% endif %}
+          {% if question10 %}
+          <div class="field">
+            <p>10、{{ question10 }}</p>
+            <input type="number" name="question10" placeholder="请输入数字">
+          </div>
+          {% endif %}
+
+          <input class="ui large submit button" type="submit" value="提交">
+       
+        {% if message %}
+        <div class="ui negative message">{{ message }}</div>
+        {% endif %}
+    </form>
+</div>
+
+
+
+{% endblock %}
