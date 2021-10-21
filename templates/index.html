@@ -89,6 +89,7 @@
             <div class="ui large secondary inverted pointing menu">
                 <a class="active item" href="{% url 'index' %}">主页</a>
                 <a class="item" href="{% url 'poll:poll_index' %}">评分</a>
+                <a class="item" href="{% url 'poll:admin_poll_view' %}">后台统计</a>
                 <div class="right item">
                     {% if is_login == 'true' %}
                     <a class="item">用户名：{{ username }}</a>

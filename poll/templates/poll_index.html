@@ -3,7 +3,7 @@
 
 {% block head %}
 
-<title>评分</title>
+<title>评价</title>
 
 <style type="text/css">
     body {
@@ -86,16 +86,26 @@
     }
     </style>
 
+    <script type="text/javascript">
+        $(document).ready(function(){   
+          $('.ui.radio.checkbox').checkbox();
+        });
+    </script>
+
+    
+
 {% endblock %}
 
 
 
 {% block body %}
+
 <div class="ui inverted vertical masthead center aligned segment">
     <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
             <a class="item" href="{% url 'index' %}">主页</a>
             <a class="active item" href="{% url 'poll:poll_index' %}">评分</a>
+            <a class="item" href="{% url 'poll:admin_poll_view' %}">后台统计</a>
             <div class="right item">
                 {% if is_login == 'true' %}
                 <a class="item">用户名：{{ username }}</a>
@@ -115,68 +125,143 @@
     <p>。。。。。</p>
     <form class="ui form" action="{% url 'poll:poll_index' %}" method="post">
         {% csrf_token %}
-          {% if question1 %}
+        <div class="inline fields">
+          <label for="question1">1、德</label>
           <div class="field">
-            <p>1、{{ question1 }}</p>
-            <input type="number" name="question1" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question1" checked="" value="优秀">
+              <label>优秀</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question2 %}
           <div class="field">
-            <p>2、{{ question2 }}</p>
-            <input type="number" name="question2" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question1"  value="合格">
+              <label>合格</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question3 %}
           <div class="field">
-            <p>3、{{ question3 }}</p>
-            <input type="number" name="question3" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question1"  value="基本合格">
+              <label>基本合格</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question4 %}
           <div class="field">
-            <p>4、{{ question4 }}</p>
-            <input type="number" name="question4" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question1"  value="不合格">
+              <label>不合格</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question5 %}
+        </div>
+        <div class="inline fields">
+          <label for="question2">2、能</label>
           <div class="field">
-            <p>5、{{ question5 }}</p>
-            <input type="number" name="question5" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question2" checked="" value="优秀">
+              <label>优秀</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question6 %}
           <div class="field">
-            <p>6、{{ question6 }}</p>
-            <input type="number" name="question6" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question2"  value="合格">
+              <label>合格</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question7 %}
           <div class="field">
-            <p>7、{{ question7 }}</p>
-            <input type="number" name="question7" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question2"  value="基本合格">
+              <label>基本合格</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question8 %}
           <div class="field">
-            <p>8、{{ question8 }}</p>
-            <input type="number" name="question8" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question2"  value="不合格">
+              <label>不合格</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question9 %}
+        </div>
+        <div class="inline fields">
+          <label for="question3">3、勤</label>
           <div class="field">
-            <p>9、{{ question9 }}</p>
-            <input type="number" name="question9" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question3" checked="" value="优秀">
+              <label>优秀</label>
+            </div>
           </div>
-          {% endif %}
-          {% if question10 %}
           <div class="field">
-            <p>10、{{ question10 }}</p>
-            <input type="number" name="question10" placeholder="请输入数字">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question3"  value="合格">
+              <label>合格</label>
+            </div>
           </div>
-          {% endif %}
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question3"  value="基本合格">
+              <label>基本合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question3"  value="不合格">
+              <label>不合格</label>
+            </div>
+          </div>
+        </div>
+        <div class="inline fields">
+          <label for="question4">4、绩</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question4" checked="" value="优秀">
+              <label>优秀</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question4"  value="合格">
+              <label>合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question4"  value="基本合格">
+              <label>基本合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question4"  value="不合格">
+              <label>不合格</label>
+            </div>
+          </div>
+        </div>
+        <div class="inline fields">
+          <label for="question5">5、廉</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question5" checked="" value="优秀">
+              <label>优秀</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question5"  value="合格">
+              <label>合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question5"  value="基本合格">
+              <label>基本合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="question5"  value="不合格">
+              <label>不合格</label>
+            </div>
+          </div>
+        </div>
 
-          <input class="ui large submit button" type="submit" value="提交">
+        <input class="ui large submit button" type="submit" value="提交">
        
         {% if message %}
         <div class="ui negative message">{{ message }}</div>

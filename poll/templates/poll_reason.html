@@ -114,15 +114,18 @@
 <div class="ui main text container">
     <h1 class="ui header">民意调查</h1>
     <p>。。。。。</p>
-    <p>您给出的评价如下：</p>
-    <p>1、德：{{question1}}</p>
-    <p>2、能：{{question2}}</p>
-    <p>3、勤：{{question3}}</p>
-    <p>4、绩：{{question4}}</p>
-    <p>5、廉：{{question5}}</p>
-    {% if reason %}
-    <p>理由为：  {{reason}}</p>
-    {% endif %}
+    <p>您给出的评价全为不合格，请输入理由</p>
+    <form class="ui form" action="{% url 'poll:poll_reason' %}" method="post">
+      {% csrf_token %}
+      <div class="field">
+        <label>理由：</label>
+        <textarea rows="2" name="pollReason"></textarea>
+      </div>
+      <input class="ui large submit button" type="submit" value="提交">
+      {% if message %}
+      <div class="ui negative message">{{ message }}</div>
+      {% endif %}
+    </form>
 </div>
 
 

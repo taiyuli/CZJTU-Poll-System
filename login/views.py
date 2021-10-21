@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.urls import reverse
 
-from .models import User
+from .models import User, PollData
 
 # Create your views here.
 
@@ -19,6 +19,8 @@ def login(request):
                 request.session['is_login'] = True
                 request.session['username'] = user.username
                 request.session['user_group'] = user.group.groupName
+                if not PollData.objects.filter(user__username=user.username):
+                    user.is_poll = 'False'
                 request.session['is_poll'] = user.is_poll
                 return redirect(reverse('index'))
             else:

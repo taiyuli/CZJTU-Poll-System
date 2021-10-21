@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+
+<title>评价统计</title>
+
+<style type="text/css">
+    body {
+      background-color: #FFFFFF;
+    }
+    .main.container {
+      margin-top: 7em;
+    }
+    .wireframe {
+      margin-top: 2em;
+    }
+
+    .masthead.segment {
+      padding: 1em 0em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+    </style>
+
+    <script type="text/javascript">
+      $(document).ready(function(){   
+        $('.ui.selection.dropdown').dropdown();
+      });
+    </script>
+
+{% endblock %}
+
+
+
+{% block body %}
+<div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a class="item" href="{% url 'index' %}">主页</a>
+            <a class="item" href="{% url 'poll:poll_index' %}">评分</a>
+            <a class="active item" href="{% url 'poll:admin_poll_view' %}">后台统计</a>
+            <div class="right item">
+              <a class="ui inverted button" href="/admin/">Admin</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui main text container">
+  <h1 class="ui header">评价统计</h1>
+  <p>。。。。。</p>
+  <form class="ui form" action="{% url 'poll:admin_poll_view' %}" method="post">
+    {% csrf_token %}
+    <div class="field">
+      <label>组别：</label>
+      <div class="ui selection dropdown">
+          <input type="hidden" name="target_group">
+          <i class="dropdown icon"></i>
+          {% if currentQueryGroup == None %}
+          <div class="default text">请选择组别</div>
+          {% else %}
+          <div class="default text">{{currentQueryGroup}}</div>
+          {% endif %}
+          <div class="menu">
+            {% for group in groupList %}
+              <div class="item" data-value="{{group}}">{{group}}</div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+    <input class="ui large submit button" type="submit" value="查询">
+    {% if message %}
+    <div class="ui negative message">{{ message }}</div>
+    {% endif %}
+  </form>
+
+  {% if is_query_result == True %}
+  <table class="ui celled table">
+    <thead>
+      <tr><th>题目\选项</th>
+      <th>优秀</th>
+      <th>合格</th>
+      <th>基本合格</th>
+      <th>不合格</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td data-label="题目\选项">德</td>
+        <td data-label="优秀">{{questionsGrade.0.0}} ({{questionsGradePercent.0.0}}%)</td>
+        <td data-label="合格">{{questionsGrade.0.1}} ({{questionsGradePercent.0.1}}%)</td>
+        <td data-label="基本合格">{{questionsGrade.0.2}} ({{questionsGradePercent.0.2}}%)</td>
+        <td data-label="不合格">{{questionsGrade.0.3}} ({{questionsGradePercent.0.3}}%)</td>
+      </tr>
+      <tr>
+        <td data-label="题目\选项">能</td>
+        <td data-label="优秀">{{questionsGrade.1.0}} ({{questionsGradePercent.1.0}}%)</td>
+        <td data-label="合格">{{questionsGrade.1.1}} ({{questionsGradePercent.1.1}}%)</td>
+        <td data-label="基本合格">{{questionsGrade.1.2}} ({{questionsGradePercent.1.2}}%)</td>
+        <td data-label="不合格">{{questionsGrade.1.3}} ({{questionsGradePercent.1.3}}%)</td>
+      </tr>
+      <tr>
+        <td data-label="题目\选项">勤</td>
+        <td data-label="优秀">{{questionsGrade.2.0}} ({{questionsGradePercent.2.0}}%)</td>
+        <td data-label="合格">{{questionsGrade.2.1}} ({{questionsGradePercent.2.1}}%)</td>
+        <td data-label="基本合格">{{questionsGrade.2.2}} ({{questionsGradePercent.2.2}}%)</td>
+        <td data-label="不合格">{{questionsGrade.2.3}} ({{questionsGradePercent.2.3}}%)</td>
+      </tr>
+      <tr>
+        <td data-label="题目\选项">绩</td>
+        <td data-label="优秀">{{questionsGrade.3.0}} ({{questionsGradePercent.3.0}}%)</td>
+        <td data-label="合格">{{questionsGrade.3.1}} ({{questionsGradePercent.3.1}}%)</td>
+        <td data-label="基本合格">{{questionsGrade.3.2}} ({{questionsGradePercent.3.2}}%)</td>
+        <td data-label="不合格">{{questionsGrade.3.3}} ({{questionsGradePercent.3.3}}%)</td>
+      </tr>
+      <tr>
+        <td data-label="题目\选项">廉</td>
+        <td data-label="优秀">{{questionsGrade.4.0}} ({{questionsGradePercent.4.0}}%)</td>
+        <td data-label="合格">{{questionsGrade.4.1}} ({{questionsGradePercent.4.1}}%)</td>
+        <td data-label="基本合格">{{questionsGrade.4.2}} ({{questionsGradePercent.4.2}}%)</td>
+        <td data-label="不合格">{{questionsGrade.4.3}} ({{questionsGradePercent.4.3}}%)</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr><th>小计:</th>
+      <th>{{questionsGradeSummary.0}} ({{questionsGradeSummaryPercent.0}}%)</th>
+      <th>{{questionsGradeSummary.1}} ({{questionsGradeSummaryPercent.1}}%)</th>
+      <th>{{questionsGradeSummary.2}} ({{questionsGradeSummaryPercent.2}}%)</th>
+      <th>{{questionsGradeSummary.3}} ({{questionsGradeSummaryPercent.3}}%)</th>
+      <tr><th>填写人次:</th>
+      <th>{{queryResultCount}}</th>
+      <th></th>
+      <th>该组人数:</th>
+      <th>{{userCount}}</th>
+    </tr></tfoot>
+  </table>
+
+  <div class="ui main text container">
+    <p>给出不合格评价的理由：</p>
+    {% for reason in pollResultReason %}
+    <p>{{reason}}</p>
+    <br/>
+    {% endfor %}
+  </div>
+  <div><br/><br/><br/></div>
+  {% endif %}
+
+</div>
+
+
+{% endblock %}
