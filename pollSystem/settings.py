@@ -121,13 +121,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/'      
 
+# DEBUG = False 时注释下面三行， DEBUG = True 时取消注释
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static/"), 
 # ]
 
-STATIC_ROOT = (os.path.join(BASE_DIR, 'static').replace('\\','/'))
+# DEBUG = True 时注释下面一行， DEBUG = False 时取消注释
+STATIC_ROOT = (os.path.join(BASE_DIR, 'static').replace('\\','/'))      
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
