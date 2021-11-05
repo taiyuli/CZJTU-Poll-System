@@ -81,6 +81,10 @@
 {% endblock %}
 
 
+{% block headmenu %}
+{% endblock %}
+
+
 {% block body %}
 
 <div class="pusher">
@@ -88,8 +92,12 @@
         <div class="ui container">
             <div class="ui large secondary inverted pointing menu">
                 <a class="active item" href="{% url 'index' %}">主页</a>
-                <a class="item" href="{% url 'poll:poll_index' %}">评分</a>
-                <a class="item" href="{% url 'poll:admin_poll_view' %}">后台统计</a>
+                <a class="item" href="{% url 'departmentPoll:poll_index' %}">部门评分</a>
+                <a class="item" href="{% url 'departmentPoll:admin_poll_view' %}">部门评分统计</a>
+                <a class="item" href="{% url 'independentPoll:leader_poll' %}">领导评价</a>
+                <a class="item" href="{% url 'independentPoll:leader_poll_count' %}">领导评价统计</a>
+                <a class="item" href="{% url 'independentPoll:department_poll' %}">部门评价(独立)</a>
+                <a class="item" href="{% url 'independentPoll:department_poll_count' %}">部门评价统计(独立)</a>
                 <div class="right item">
                     {% if is_login == 'true' %}
                     <a class="item">用户名：{{ username }}</a>
@@ -108,7 +116,7 @@
                 民意调查
             </h1>
             <h2>。。。。。。。</h2>
-            <a href="{% url 'poll:poll_index' %}"><div class="ui huge primary button">开始 <i class="right arrow icon"></i></div></a>
+            <a href="{% url 'departmentPoll:poll_index' %}"><div class="ui huge primary button">开始 <i class="right arrow icon"></i></div></a>
         </div>
   
     </div>

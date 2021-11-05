@@ -26,7 +26,8 @@ from .views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('poll/', include('poll.urls')),
+    path('departmentPoll/', include('departmentPoll.urls')),
+    path('independentPoll/', include('independentPoll.urls')),
     path('login/', include('login.urls')),
 
     path('', index),

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+
+<title>评价统计</title>
+
+<style type="text/css">
+    body {
+      background-color: #FFFFFF;
+    }
+    .main.container {
+      margin-top: 7em;
+    }
+    .wireframe {
+      margin-top: 2em;
+    }
+
+    .masthead.segment {
+      padding: 1em 0em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+    </style>
+
+    <script type="text/javascript">
+      $(document).ready(function(){   
+        $('.ui.selection.dropdown').dropdown();
+      });
+    </script>
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <a class="item" href="{% url 'index' %}">主页</a>
+        <a class="item" href="{% url 'departmentPoll:poll_index' %}">部门评分</a>
+        <a class="item" href="{% url 'departmentPoll:admin_poll_view' %}">部门评分统计</a>
+        <a class="item" href="{% url 'independentPoll:leader_poll' %}">领导评价</a>
+        <a class="active item" href="{% url 'independentPoll:leader_poll_count' %}">领导评价统计</a>
+        <a class="item" href="{% url 'independentPoll:department_poll' %}">部门评价(独立)</a>
+        <a class="item" href="{% url 'independentPoll:department_poll_count' %}">部门评价统计(独立)</a>
+          <div class="right item">
+            <a class="ui inverted button" href="/admin/">Admin</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="ui main text container">
+  <h1 class="ui header">领导评价统计</h1>
+  <p>。。。。。</p>
+
+  <table class="ui celled table">
+    <thead>
+      <tr><th>领导\等级</th>
+      <th>优秀</th>
+      <th>合格</th>
+      <th>基本合格</th>
+      <th>不合格</th>
+      <th>评价人数</th>
+    </tr></thead>
+    <tbody>
+      {% for leader in leaderList %}
+      <tr>
+        <td data-label="题目\选项">{{ leader.0 }}</td>
+        <td data-label="优秀">{{ leader.1 }} ({{ leader.6 }}%)</td>
+        <td data-label="合格">{{ leader.2 }} ({{ leader.7 }}%)</td>
+        <td data-label="基本合格">{{ leader.3 }} ({{ leader.8 }}%)</td>
+        <td data-label="不合格">{{ leader.4 }} ({{ leader.9 }}%)</td>
+        <td data-label="评价人数">{{ leader.5 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+
+{% endblock %}

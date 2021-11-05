@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+
+<title>评价</title>
+
+<style type="text/css">
+    body {
+      background-color: #FFFFFF;
+    }
+    .main.container {
+      margin-top: 7em;
+    }
+    .wireframe {
+      margin-top: 2em;
+    }
+
+    .masthead.segment {
+      padding: 1em 0em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function(){   
+          $('.ui.radio.checkbox').checkbox();
+        });
+    </script>
+
+    
+
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+          <a class="item" href="{% url 'index' %}">主页</a>
+          <a class="item" href="{% url 'departmentPoll:poll_index' %}">部门评分</a>
+          <a class="item" href="{% url 'departmentPoll:admin_poll_view' %}">部门评分统计</a>
+          <a class="item" href="{% url 'independentPoll:leader_poll' %}">领导评价</a>
+          <a class="item" href="{% url 'independentPoll:leader_poll_count' %}">领导评价统计</a>
+          <a class="active item" href="{% url 'independentPoll:department_poll' %}">部门评价(独立)</a>
+          <a class="item" href="{% url 'independentPoll:department_poll_count' %}">部门评价统计(独立)</a>
+          <div class="right item">
+              {% if is_login == 'true' %}
+              <a class="item">用户名：{{ username }}</a>
+              <a class="item">组别：{{ user_group }}</a>
+              <a class="ui inverted button" href="{% url 'login:logout' %}">退出</a>
+              <a class="ui inverted button" href="{% url 'login:modify' %}">修改</a>
+              {% else %}
+              <a class="ui inverted button" href="{% url 'login:login' %}">登陆</a>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="ui main text container">
+    <h1 class="ui header">领导评价</h1>
+    <p>。。。。。</p>
+    <form class="ui form" action="{% url 'independentPoll:department_poll' %}" method="post">
+        {% csrf_token %}
+
+        {% for to_poll_department in to_poll_department_list %}
+        <div class="inline fields">
+          <label for="{{ to_poll_department.0 }}">{{ to_poll_department.0 }}</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="{{ to_poll_department.0 }}" checked="" value="优秀">
+              <label>优秀</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="{{ to_poll_department.0 }}"  value="合格">
+              <label>合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="{{ to_poll_department.0 }}"  value="基本合格">
+              <label>基本合格</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="{{ to_poll_department.0 }}"  value="不合格">
+              <label>不合格</label>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        <input class="ui large submit button" type="submit" value="提交">
+       
+        {% if message %}
+        <div class="ui negative message">{{ message }}</div>
+        {% endif %}
+    </form>
+</div>
+
+
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.db import models
 
-from poll.models import WorkGroup
+from departmentPoll.models import WorkGroup
 
 # Create your models here.
 
@@ -13,16 +13,22 @@ class User(models.Model):
     username = models.CharField(max_length=128, unique=True, verbose_name="用户名")
     password = models.CharField(max_length=256, verbose_name="密码")
     group = models.ForeignKey(WorkGroup, on_delete=models.CASCADE, verbose_name="组别")
-    is_poll = models.CharField(max_length=128, choices=is_poll_choices, default='F', verbose_name="是否已经打分")
+    is_poll_1 = models.CharField(max_length=128, choices=is_poll_choices, default='F', verbose_name="是否已经打分(部门)")
+    is_poll_2 = models.CharField(max_length=128, choices=is_poll_choices, default='F', verbose_name="是否已经打分(领导)")
+    is_poll_3 = models.CharField(max_length=128, choices=is_poll_choices, default='F', verbose_name="是否已经打分(部门独立)")
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     last_kogin_time = models.DateTimeField(auto_now=True, verbose_name="最后一次登陆时间")
+
+    class Meta:
+        verbose_name = '评价用户'
+        verbose_name_plural = '评价用户'
 
     def __str__(self):
         return self.username
 
 
 # 评价数据模型
-class PollData(models.Model):
+class DepartmentPollData(models.Model):
     poll_grade_choices = (
         ('优秀', '优秀'),
         ('合格', '合格'),
@@ -37,6 +43,10 @@ class PollData(models.Model):
     question4 = models.CharField(max_length=16, choices=poll_grade_choices, verbose_name='绩')
     question5 = models.CharField(max_length=16, choices=poll_grade_choices, verbose_name='廉')
     reason = models.CharField(max_length=2048, default='', blank=True, verbose_name='评价理由')
+
+    class Meta:
+        verbose_name = '部门评价数据'
+        verbose_name_plural = '部门评价数据' 
 
     def __str__(self):
         return str(self.group) + "----" + str(self.user) + " 的评价"

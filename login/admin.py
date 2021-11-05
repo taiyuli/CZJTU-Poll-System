@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, PollData
+from .models import User, DepartmentPollData
 
 # Register your models here.
 
@@ -13,10 +13,10 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 
-class PollDataAdmin(admin.ModelAdmin):
+class DepartmentPollDataAdmin(admin.ModelAdmin):
     list_display = ['user', 'group']
     list_filter = ['group']
     list_display_links = ['user']
     list_per_page = 10
 
-admin.site.register(PollData, PollDataAdmin)
+admin.site.register(DepartmentPollData, DepartmentPollDataAdmin)

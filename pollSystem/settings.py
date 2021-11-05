@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7+(jlrk-y+0s-(uxg$utz&o%)^=t-pg-ov9t(6@$exa81vv$h('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'poll',
     'login',
+    'departmentPoll',
+    'independentPoll',
 ]
 
 MIDDLEWARE = [
@@ -124,12 +125,12 @@ USE_TZ = True
 STATIC_URL = 'static/'      
 
 # DEBUG = False 时注释下面三行， DEBUG = True 时取消注释
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static/"), 
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static/"), 
+]
 
 # DEBUG = True 时注释下面一行， DEBUG = False 时取消注释
-STATIC_ROOT = (os.path.join(BASE_DIR, 'static').replace('\\','/'))      
+# STATIC_ROOT = (os.path.join(BASE_DIR, 'static').replace('\\','/'))      
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
