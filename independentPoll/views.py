@@ -108,10 +108,11 @@ def leaderPollIdpdCount(request):
                 leader[3] += 1
             elif leaderPollData.pollGrade == '不合格':
                 leader[4] += 1
-        leader[6] = round(leader[1] / leader[5] * 100, 2)
-        leader[7] = round(leader[2] / leader[5] * 100, 2)
-        leader[8] = round(leader[3] / leader[5] * 100, 2)
-        leader[9] = round(leader[4] / leader[5] * 100, 2)
+        if leader[5] != 0:
+            leader[6] = round(leader[1] / leader[5] * 100, 2)
+            leader[7] = round(leader[2] / leader[5] * 100, 2)
+            leader[8] = round(leader[3] / leader[5] * 100, 2)
+            leader[9] = round(leader[4] / leader[5] * 100, 2)
     infoDict = {
         'leaderList': leaderList
     }
@@ -136,10 +137,11 @@ def departmentPollIdpdCount(request):
                 department[3] += 1
             elif departmentPollData.pollGrade == '不合格':
                 department[4] += 1
-        department[6] = round(department[1] / department[5] * 100, 2)
-        department[7] = round(department[2] / department[5] * 100, 2)
-        department[8] = round(department[3] / department[5] * 100, 2)
-        department[9] = round(department[4] / department[5] * 100, 2)
+        if department[5] != 0:
+            department[6] = round(department[1] / department[5] * 100, 2)
+            department[7] = round(department[2] / department[5] * 100, 2)
+            department[8] = round(department[3] / department[5] * 100, 2)
+            department[9] = round(department[4] / department[5] * 100, 2)
     infoDict = {
         'departmentList': departmentList
     }

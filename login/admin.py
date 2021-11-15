@@ -13,6 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 
+
 class DepartmentPollDataAdmin(admin.ModelAdmin):
     list_display = ['user', 'group']
     list_filter = ['group']
